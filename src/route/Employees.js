@@ -6,7 +6,30 @@ function Employees() {
 
     const { employees } = useSelector((state) => state.employees);
     console.log(employees);
-    const employeesList = [
+
+    const generateObjects = () => {
+        const objects = [];
+        let startDate = new Date('9/1/1978')
+        let dateOfBirth = new Date('7/17/1976')
+        for (let i = 0; i < 500; i++) {
+            objects.push({
+                firstName: 'firstName '+i,
+                lastName: 'lastName '+i,
+                startDate: startDate,
+                department: 'department '+i,
+                dateOfBirth: dateOfBirth,
+                street: 'street '+i,
+                city: 'city' +i,
+                state: 'state '+i,
+                zipCode: 'zipCode '+i,
+            });
+            startDate++;
+            dateOfBirth++;
+        }
+        return objects;
+    };
+      
+    let employeesList = [
         {
             firstName: 'Elijah',
             lastName: 'Larsen',
@@ -30,6 +53,9 @@ function Employees() {
             zipCode: '10494',
         },
       ];
+
+      console.log(generateObjects());
+      employeesList = employeesList.concat(generateObjects());
       
       const employeesHeader = [
         {id: 'firstName', label: 'First Name', type: 'string'},
@@ -43,15 +69,15 @@ function Employees() {
         {id: 'zipCode', label: 'Zip Code', type: 'string'}
     ]
     return (
-        <div>
+        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
             <h1>Current Employees</h1>
-            <DataTable 
-                data={employeesList} 
-                header={employeesHeader} 
-                enableSearch={true} 
-                enablePagination={true} 
-            />
-            <table id="employee-table" className="display">
+                <DataTable
+                    data={employeesList} 
+                    header={employeesHeader} 
+                    enableSearch={true} 
+                    enablePagination={true} 
+                />
+            {/* <table id="employee-table" className="display">
                 <thead>
                     <tr>
                         <th>Frist Name</th>
@@ -80,7 +106,7 @@ function Employees() {
                         </tr>
                     }) : null}
                 </tbody>
-            </table>
+            </table> */}
             <Link to={'/'}>Home</Link>
         </div>
     );
